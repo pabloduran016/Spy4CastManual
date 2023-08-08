@@ -31,3 +31,18 @@ For usage example look at file [EquatorialAtlantic_Impact_Nino.py](EquatorialAtl
 ## How to cite this material
 
 DOI: https://10.5281/zenodo.8162066
+
+BibTex:
+```
+@software{duran_fonseca_pablo_2023_8219489,
+  author       = {Duran-Fonseca, Pablo and
+                  Rodriguez-Fonseca, Belen},
+  title        = {Spy4CastManual},
+  month        = aug,
+  year         = 2023,
+  publisher    = {Zenodo},
+  version      = {1.0.0},
+  doi          = {10.5281/zenodo.8219489},
+  url          = {https://doi.org/10.5281/zenodo.8219489}
+}
+```
