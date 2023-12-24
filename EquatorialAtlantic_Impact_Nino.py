@@ -45,3 +45,5 @@ cross.save("cross_", "./data-EquatorialAtalantic_Impact_Nino/")
 
 mca.plot(save_fig=True, name="mca.png", folder="./plots-EquatorialAtalantic_Impact_Nino/", suy_ticks=[-0.25, -0.125, 0, 0.125, 0.250], suz_ticks=[-0.25, -0.125, 0, 0.125, 0.250])
 cross.plot(save_fig=True, name="cross.png", folder="./plots-EquatorialAtalantic_Impact_Nino/")
+cross.plot_zhat(1998, figsize=(12, 10), save_fig=True, name="zhat_1998.png", folder="./plots-EquatorialAtalantic_Impact_Nino/")
+
