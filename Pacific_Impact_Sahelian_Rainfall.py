@@ -53,3 +53,4 @@ cross.plot(
     map_ticks=[-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2],
     map_levels=[-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2],
 )
+cross.plot_zhat(1999, figsize=(12, 10), save_fig=True, name="zhat_1999.png", folder="./plots-Pacific_Impact_Sahelian_Rainfall/")
