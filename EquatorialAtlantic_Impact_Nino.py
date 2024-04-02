@@ -1,13 +1,14 @@
+import numpy as np
 from spy4cast import Dataset, Region, Month
-from spy4cast.spy4cast import Preprocess, MCA, Crossvalidation
+from spy4cast.spy4cast import Preprocess, MCA, Crossvalidation, Validation
 
 ## CONFIGURATION
 # We will use sea surface temperature both for dataset and predictor, but
 # with differnt regions
 predictor = Dataset("HadISST_sst-1970_2020.nc", "./datasets").open("sst").slice(
-    Region(lat0=-30, latf=30,
+    Region(lat0=-30, latf=10,
            lon0=-60, lonf=15,
-           month0=Month.MAY, monthf=Month.JUL,
+           month0=Month.JUN, monthf=Month.AUG,
            year0=1976, yearf=2000),
     skip=1
 )
@@ -17,13 +18,12 @@ predictand = Dataset("HadISST_sst-1970_2020.nc", "./datasets").open("sst").slice
            month0=Month.DEC, monthf=Month.FEB,
            year0=1977, yearf=2001),
     skip=1
-)
-# There is a lag of 7 months (from May to December)
+)# There is a lag of 6 months (from June to December)
 
 ## METHODOLOGY
 
 # First step. Preprocess variables: anomaly and reshaping
-predictor_preprocessed = Preprocess(predictor)
+predictor_preprocessed = Preprocess(predictor, period=8, order=4)
 predictor_preprocessed.save("y_", "./data-EquatorialAtalantic_Impact_Nino/")
 # Save matrices as .npy for fast loading. To load use:
 # predictor_preprocessed = Preprocess.load("y_", "./data-EquatorialAtalantic_Impact_Nino/")
@@ -43,7 +43,62 @@ cross = Crossvalidation(predictor_preprocessed, predictand_preprocessed, nm, alp
 cross.save("cross_", "./data-EquatorialAtalantic_Impact_Nino/")
 # cross = Crossvalidation.load("cross_", "./data-EquatorialAtalantic_Impact_Nino/", dsy=predictor_preprocessed, dsz=predictand_preprocessed)
 
-mca.plot(save_fig=True, name="mca.png", folder="./plots-EquatorialAtalantic_Impact_Nino/", suy_ticks=[-0.25, -0.125, 0, 0.125, 0.250], suz_ticks=[-0.25, -0.125, 0, 0.125, 0.250])
+mca.plot(save_fig=True, name="mca.png", folder="./plots-EquatorialAtalantic_Impact_Nino/", ruy_ticks=[-1, -0.5, 0, 0.5, 1], ruz_ticks=[-1, -0.5, 0, 0.5, 1])
 cross.plot(save_fig=True, name="cross.png", folder="./plots-EquatorialAtalantic_Impact_Nino/")
-cross.plot_zhat(1998, figsize=(12, 10), save_fig=True, name="zhat_1998.png", folder="./plots-EquatorialAtalantic_Impact_Nino/")
+cross.plot_zhat(1998, figsize=(12, 10), save_fig=True, name="zhat_1998.png", folder="./plots-EquatorialAtalantic_Impact_Nino/", z_levels=np.linspace(-2, 2, 10), z_ticks=np.linspace(-2, 2, 5))
 
+
+# VALIDATION
+
+# To apply validation we first preprocess the training data
+training_y = Preprocess(Dataset("HadISST_sst-1970_2020.nc", "./datasets").open("sst").slice(
+    Region(lat0=-30, latf=10,
+           lon0=-60, lonf=15,
+           month0=Month.JUN, monthf=Month.AUG,
+           year0=1976, yearf=2000),
+    skip=1
+), period=8, order=4)
+training_z = Preprocess(Dataset("HadISST_sst-1970_2020.nc", "./datasets").open("sst").slice(
+    Region(lat0=-30, latf=30,
+           lon0=-200, lonf=-60,
+           month0=Month.DEC, monthf=Month.FEB,
+           year0=1977, yearf=2001),
+    skip=1
+))
+# Optionally save so that we save computing time for next runs
+training_y.save("training_y_", "./data-EquatorialAtalantic_Impact_Nino/")
+# training_y = Preprocess.load("training_y_", "./data/-EquatorialAtalantic_Impact_Nino")
+training_z.save("training_z_", "./data-EquatorialAtalantic_Impact_Nino/")
+# training_z = Preprocess.load("training_z_", "./data/-EquatorialAtalantic_Impact_Nino")
+
+# Train the prediction model
+training_mca = MCA(training_y, training_z, nm=6, alpha=0.05)
+training_mca.save("training_mca_", "./data-EquatorialAtalantic_Impact_Nino/")
+# training_mca = MCA.load("training_mca_", "./data-EquatorialAtalantic_Impact_Nino/", dsy=training_y, dsz=training_z)
+
+# We now validate agains the period from 2001 - 2020
+validating_y = Preprocess(Dataset("HadISST_sst-1970_2020.nc", "./datasets").open("sst").slice(
+    Region(lat0=-30, latf=10,
+           lon0=-60, lonf=15,
+           month0=Month.JUN, monthf=Month.AUG,
+           year0=2001, yearf=2019),
+    skip=1
+), period=8, order=4)
+validating_z = Preprocess(Dataset("HadISST_sst-1970_2020.nc", "./datasets").open("sst").slice(
+    Region(lat0=-30, latf=30,
+           lon0=-200, lonf=-60,
+           month0=Month.DEC, monthf=Month.FEB,
+           year0=2002, yearf=2020),
+    skip=1
+))
+# Optionally save so that we save computing time for next runs
+validating_y.save("validating_y_", "./data-EquatorialAtalantic_Impact_Nino/")
+# validating_y = Preprocess.load("training_y_", "./data/-EquatorialAtalantic_Impact_Nino")
+validating_z.save("validating_z_", "./data-EquatorialAtalantic_Impact_Nino/")
+# validating_z = Preprocess.load("validating_z_", "./data/-EquatorialAtalantic_Impact_Nino")
+
+validation = Validation(training_mca, validating_y, validating_z)
+validation.save("validation_z_", "./data-EquatorialAtalantic_Impact_Nino/")
+
+validation.plot(save_fig=True, folder="./plots-EquatorialAtalantic_Impact_Nino/", name="validation.png", version='default')
+validation.plot_zhat(2016, save_fig=True, folder="./plots-EquatorialAtalantic_Impact_Nino/", name="zhat_2016_validation.png", z_levels=np.linspace(-4.1, 4.1, 10))
