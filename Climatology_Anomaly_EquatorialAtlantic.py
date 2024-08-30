@@ -17,7 +17,7 @@ region = Region(
     month0=Month.MAY, monthf=Month.JUL,
     year0=1976, yearf=2000
 )  # months can also be stated through integers.
-ds.slice(region)  # year0 and yearf apply to monthf.
+ds.slice(region)  # year0 and yearf refer to monthf. 
 # ds.slice(region, skip=1)  # skip 1 data point in lat and lon dimension.
 
 # Climatology maps and time series.
@@ -47,5 +47,5 @@ anom_map = Anom.load("anom_map_", folder="./data-Climatology_Anomaly_EquatorialA
 # to show plots if show_plot=False:
 # # clim_ts.plot()
 # # anom_ts.plot(year=1990)
-# import matplotlib.pyplot as plt
-# plt.show()
+import matplotlib.pyplot as plt
+plt.show()
