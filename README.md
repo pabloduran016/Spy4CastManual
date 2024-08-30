@@ -36,15 +36,14 @@ DOI: https://10.5281/zenodo.8162066
 
 BibTex:
 ```
-@software{duran_fonseca_pablo_2023_8219489,
-  author       = {Duran-Fonseca, Pablo and
-                  Rodriguez-Fonseca, Belen},
-  title        = {Spy4CastManual},
-  month        = aug,
-  year         = 2023,
-  publisher    = {Zenodo},
-  version      = {1.0.0},
-  doi          = {10.5281/zenodo.8219489},
-  url          = {https://doi.org/10.5281/zenodo.8219489}
+@software{Spy4CastManual,
+  doi = {10.5281/ZENODO.13619197},
+  url = {https://zenodo.org/doi/10.5281/zenodo.13619197},
+  author = {Duran-Fonseca,  Pablo and Rodriguez-Fonseca,  Belen},
+  keywords = {python,  open-source,  statistical-model,  physics,  spy4cast},
+  title = {Spy4CastManual},
+  publisher = {Zenodo},
+  year = {2024},
+  copyright = {Creative Commons Attribution 4.0 International}
 }
 ```
