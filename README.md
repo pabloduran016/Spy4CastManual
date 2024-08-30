@@ -8,6 +8,8 @@ and run for the first time this model.
 
 Full documentation is available at https://spy4cast-docs.netlify.app
 
+Link to GitHub repository with the latest code: https://github.com/pabloduran016/Spy4CastManual
+
 ## Installation
 
 You have to have installed git (Install Git https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
