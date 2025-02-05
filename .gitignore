@@ -4,3 +4,5 @@
 /data/
 /internal/
 /data-*/
+step-by-step-tutorial/data
+.ipynb_checkpoints
