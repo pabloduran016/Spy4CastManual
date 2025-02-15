@@ -6,9 +6,11 @@ maximum convariance analysis (MCA) statistical model.
 In this manual we explain the steps to take to install 
 and run for the first time this model.
 
-Full documentation is available at https://spy4cast-docs.netlify.app
+Full documentation is available at https://spy4cast.readthedocs.io
 
-Link to GitHub repository with the latest code: https://github.com/pabloduran016/Spy4CastManual
+Link to GitHub repository with the latest code: 
+- Source Coude: https://github.com/pabloduran016/Spy4Cast
+- Manual: https://github.com/pabloduran016/Spy4CastManual
 
 ## Installation
 
