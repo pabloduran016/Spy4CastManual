@@ -14,16 +14,12 @@ import cartopy.crs as ccrs
 # Predictand variable is the same in every run:
 
 DATASETS_FOLDER = "./datasets"
-Z_DATASET_NAME = "cru_ts4.06.1950.2010.nc"
+Z_DATASET_NAME = "cru_ts4.06.1960.2021.nc"
 Z_VAR = "pre"
-Y_DATASET_NAME = "HadISST_sst-1970_2020.nc"
+Y_DATASET_NAME = "HadISST_sst-1960_2020.nc"
 Y_VAR = "sst"
 year0, yearf = 1971, 2000
 
-# DATASETS_FOLDER = "/Users/Shared/datasets/"
-# Y_DATASET_NAME = "HadISST_sst.nc"
-# Z_DATASET_NAME = "cru_ts4.06.1901.2021.pre.dat.nc"
-# year0, yearf = 1970, 2019
 
 filename = os.path.splitext(os.path.basename(__file__))[0] + f"-{year0}_{yearf}"
 
@@ -85,7 +81,6 @@ for i in range(len(lags)):
     if not os.path.exists(os.path.join(DATA_FOLDER, mca_prefix+"RUY.npy")):
         y_ds = Dataset(Y_DATASET_NAME, folder=DATASETS_FOLDER).open(Y_VAR).slice(y_region)
         y_pre = spy4cast.Preprocess(y_ds)
-
         mca = spy4cast.MCA(y_pre, z_pre, nm=nm, alpha=alpha)
         mca.save(mca_prefix, folder=DATA_FOLDER)
 

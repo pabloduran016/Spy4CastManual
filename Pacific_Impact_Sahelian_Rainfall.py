@@ -4,14 +4,14 @@ from spy4cast.spy4cast import Preprocess, MCA, Crossvalidation
 
 # Pacific impact on Sahelian rainfall
 
-predictor = Dataset("HadISST_sst-1970_2020.nc", "./datasets").open("sst").slice(
+predictor = Dataset("HadISST_sst-1960_2020.nc", "./datasets").open("sst").slice(
     Region(lat0=-30, latf=30,
            lon0=-200, lonf=-60,
            month0=Month.APR, monthf=Month.JUN,
            year0=1970, yearf=2000),
 )
 
-predictand = Dataset("cru_ts4.06.1950.2010.nc", "./datasets").open("pre").slice(
+predictand = Dataset("cru_ts4.06.1960.2021.nc", "./datasets").open("pre").slice(
     Region(lat0=0, latf=25,
            lon0=-20, lonf=20,
            month0=Month.JUL, monthf=Month.SEP,
@@ -60,7 +60,7 @@ cross.plot_zhat(1999, figsize=(12, 10), save_fig=True, name="zhat_1999.png",
                 z_levels=np.linspace(-100, 100, 15))
 
 # Plot regression on a bigger map
-map_y = Dataset("HadISST_sst-1970_2020.nc", "./datasets").open("sst").slice(
+map_y = Dataset("HadISST_sst-1960_2020.nc", "./datasets").open("sst").slice(
     Region(lat0=-32, latf=32,
            lon0=-309.5, lonf=39.5,
            month0=Month.APR, monthf=Month.JUN,

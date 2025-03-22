@@ -4,7 +4,7 @@ from spy4cast.meteo import Clim, Anom
 
 
 dataset_folder = "./datasets"  # Path to the folder where the datasets are stored.
-dataset_filename = "HadISST_sst-1970_2020.nc"  # File format must be netcdf4.
+dataset_filename = "HadISST_sst-1960_2020.nc"  # File format must be netcdf4.
 ds = Dataset(dataset_filename, folder=dataset_folder)
 # A chunks keyword argument can be provided in this step. This value will be
 # stored internally and passed to in the opening step to use dask chunks.
