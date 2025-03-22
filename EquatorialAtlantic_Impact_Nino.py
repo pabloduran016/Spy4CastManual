@@ -5,14 +5,14 @@ from spy4cast.spy4cast import Preprocess, MCA, Crossvalidation, Validation
 ## CONFIGURATION
 # We will use sea surface temperature both for dataset and predictor, but
 # with differnt regions
-predictor = Dataset("HadISST_sst-1960_2020.nc", "./datasets").open("sst").slice(
+predictor = Dataset("HadISST_sst_chopped.nc", "./datasets").open("sst").slice(
     Region(lat0=-30, latf=10,
            lon0=-60, lonf=15,
            month0=Month.JUN, monthf=Month.AUG,
            year0=1970, yearf=2019),
     skip=1
 )
-predictand = Dataset("HadISST_sst-1960_2020.nc", "./datasets").open("sst").slice(
+predictand = Dataset("HadISST_sst_chopped.nc", "./datasets").open("sst").slice(
     Region(lat0=-30, latf=30,
            lon0=-200, lonf=-60,
            month0=Month.DEC, monthf=Month.FEB,  
@@ -55,14 +55,14 @@ cross.plot_zhat(1998, figsize=(12, 10), save_fig=True, name="zhat_1998.png", fol
 # However, it shows how to apply *Validation* to any dataset with any configuration.
 
 # To apply validation we first preprocess the training data
-training_y = Preprocess(Dataset("HadISST_sst-1960_2020.nc", "./datasets").open("sst").slice(
+training_y = Preprocess(Dataset("HadISST_sst_chopped.nc", "./datasets").open("sst").slice(
     Region(lat0=-30, latf=10,
            lon0=-60, lonf=15,
            month0=Month.JUN, monthf=Month.AUG,
            year0=1970, yearf=2000),
     skip=1
 ), period=8, order=4)
-training_z = Preprocess(Dataset("HadISST_sst-1960_2020.nc", "./datasets").open("sst").slice(
+training_z = Preprocess(Dataset("HadISST_sst_chopped.nc", "./datasets").open("sst").slice(
     Region(lat0=-30, latf=30,
            lon0=-200, lonf=-60,
            month0=Month.DEC, monthf=Month.FEB,
@@ -81,14 +81,14 @@ training_mca.save("training_mca_", "./data-EquatorialAtalantic_Impact_Nino/")
 # training_mca = MCA.load("training_mca_", "./data-EquatorialAtalantic_Impact_Nino/", dsy=training_y, dsz=training_z)
 
 # We now validate agains the period from 2001 - 2020
-validating_y = Preprocess(Dataset("HadISST_sst-1960_2020.nc", "./datasets").open("sst").slice(
+validating_y = Preprocess(Dataset("HadISST_sst_chopped.nc", "./datasets").open("sst").slice(
     Region(lat0=-30, latf=10,
            lon0=-60, lonf=15,
            month0=Month.JUN, monthf=Month.AUG,
            year0=2010, yearf=2019),
     skip=1
 ), period=8, order=4)
-validating_z = Preprocess(Dataset("HadISST_sst-1960_2020.nc", "./datasets").open("sst").slice(
+validating_z = Preprocess(Dataset("HadISST_sst_chopped.nc", "./datasets").open("sst").slice(
     Region(lat0=-30, latf=30,
            lon0=-200, lonf=-60,
            month0=Month.DEC, monthf=Month.FEB,

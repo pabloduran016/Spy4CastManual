@@ -14,9 +14,9 @@ import cartopy.crs as ccrs
 # Predictand variable is the same in every run:
 
 DATASETS_FOLDER = "./datasets"
-Z_DATASET_NAME = "cru_ts4.06.1960.2021.nc"
+Z_DATASET_NAME = "cru_ts4_pre_chopped.nc"
 Z_VAR = "pre"
-Y_DATASET_NAME = "HadISST_sst-1960_2020.nc"
+Y_DATASET_NAME = "HadISST_sst_chopped.nc"
 Y_VAR = "sst"
 year0, yearf = 1971, 2000
 
