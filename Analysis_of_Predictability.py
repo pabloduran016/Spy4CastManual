@@ -13,17 +13,17 @@ import cartopy.crs as ccrs
 
 # Predictand variable is the same in every run:
 
-# DATASETS_FOLDER = "./datasets"
-# Z_DATASET_NAME = "cru_ts4.06.1950.2010.nc"
+DATASETS_FOLDER = "./datasets"
+Z_DATASET_NAME = "cru_ts4.06.1950.2010.nc"
 Z_VAR = "pre"
-# Y_DATASET_NAME = "HadISST_sst-1970_2020.nc"
+Y_DATASET_NAME = "HadISST_sst-1970_2020.nc"
 Y_VAR = "sst"
-# year0, yearf = 1970, 2000
+year0, yearf = 1971, 2000
 
-DATASETS_FOLDER = "/Users/Shared/datasets/"
-Y_DATASET_NAME = "HadISST_sst.nc"
-Z_DATASET_NAME = "cru_ts4.06.1901.2021.pre.dat.nc"
-year0, yearf = 1970, 2019
+# DATASETS_FOLDER = "/Users/Shared/datasets/"
+# Y_DATASET_NAME = "HadISST_sst.nc"
+# Z_DATASET_NAME = "cru_ts4.06.1901.2021.pre.dat.nc"
+# year0, yearf = 1970, 2019
 
 filename = os.path.splitext(os.path.basename(__file__))[0] + f"-{year0}_{yearf}"
 
