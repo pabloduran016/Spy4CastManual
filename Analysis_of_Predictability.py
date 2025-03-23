@@ -7,7 +7,8 @@ Author: Pablo Duran
 import math
 import numpy as np
 import os
-from spy4cast import Dataset, Region, Month, get_central_longitude_from_region, get_xlim_from_region, region2str, season2str, spy4cast, plot_map
+from spy4cast import Dataset, Region, Month, get_central_longitude_from_region, \
+    get_xlim_from_region, region2str, season2str, spy4cast, plot_map
 import cartopy.crs as ccrs
 
 
