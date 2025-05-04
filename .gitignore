@@ -6,3 +6,4 @@
 /data-*/
 step-by-step-tutorial/data
 .ipynb_checkpoints
+datasets/HadISST_sst.nc
